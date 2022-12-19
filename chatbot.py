@@ -15,17 +15,23 @@ create_option_str = "create"
 edit_option_str = "edit"
 quit_option_str = "quit"
 
-# number of tokens, length of response
-max_token_limit = 4000
-
 print_delay_sec = 3
 
 
-def retrieveAPIKey():
+def getAPIKey():
+    # for authentication
     # read api key from file
     with open("api_key.txt", "r") as f:
         # return key
         return f.read().strip()
+
+
+def getMaxTokenLimit():
+    # number of tokens = length of response
+    # read max token limit from file
+    with open("max_token_limit.txt", "r") as f:
+        # return key
+        return int(f.read().strip())
 
 
 def authenticate(key):
@@ -47,7 +53,7 @@ def printHorizontalLine():
     print("\n" + "-" * horizontal_line_width + "\n")
 
 
-def generateResponse(prompt):
+def generateResponse(prompt, max_token_limit):
 
     try:
         # generate response
@@ -93,7 +99,7 @@ def create(prompt):
         return False
 
     # generate response
-    response = generateResponse(prompt)
+    response = generateResponse(prompt, getMaxTokenLimit())
 
     # retrieve text from response
     text = getTextFromResponse(response)
@@ -136,7 +142,7 @@ def edit(user_prompt, instructions):
 
 try:
 
-    api_key = retrieveAPIKey()
+    api_key = getAPIKey()
 
     authenticate(api_key)
 
@@ -180,4 +186,4 @@ try:
 except:
     pass
 
-print("\nQuitting program...")
+print("\nQuitting program...\n")

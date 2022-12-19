@@ -1,6 +1,9 @@
 # DS Store
 .DS_Store
 
+# Max Token Limit
+max_token_limit.txt
+
 # API Key
 api_key.txt
 
